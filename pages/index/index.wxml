@@ -1,0 +1,8 @@
+<!--pages/index/index.wxml-->
+<navigation
+id='Navigation'
+show-icon='{{showIcon}}'
+title="首页"
+>
+</navigation>
+<view class="content">这是正文区</view>

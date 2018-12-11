@@ -1,0 +1,139 @@
+<template>
+  <view style="height:{{titleBarHeight}}px;padding-top:{{statusBarHeight}}px">
+    <view class="header" style="height:{{titleBarHeight}}px;padding-top:{{statusBarHeight}}px">
+      <view wx:if="{{showIcon}}" class="title-bar">
+        <view class="back" @tap="headerBack"><image src="https://dn-testimage.qbox.me/Files/08/6b/086b8e19c7a5aa031dc4df31ca8b53ac2ed32212_644.png"></image></view>
+        <view class="line"></view>
+        <view class="home" @tap="headerHome"><image src="https://dn-testimage.qbox.me/Files/fc/49/fc4958729bf1937667b68c78f495edeafe30f339_1030.png"></image></view>
+      </view>
+      <view class="header-title">{{title}}</view>
+    </view>
+    <view class="loading-wrap"><image class="loading-gif" src="https://dn-testimage.qbox.me/Files/e0/35/e03562502eae6d5944bed747b7c21a3c2cce1ff8_1250.gif"></image></view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Navigation extends wepy.component {
+    props = {
+      title: {
+        type: String,
+        default: '穿衣助手拼团'
+      },
+      showIcon: {
+        type: Boolean,
+        default: true
+      }
+    }
+
+    data = {
+      statusBarHeight: 0,
+      titleBarHeight: 0,
+    }
+
+    methods = {
+      headerBack() {
+        wx.navigateBack({
+          delta: 2,
+          fail() {
+            wx.switchTab({
+              url: '/pages/grouponList/main'
+            })
+          }
+        })
+      },
+      headerHome() {
+        wx.switchTab({
+          url: '/pages/grouponList/main'
+        })
+      }
+    }
+    onLoad() {
+      if (this.$root.$parent.globalData.statusBarHeight && this.$root.$parent.globalData.titleBarHeight) {
+        this.statusBarHeight = this.$root.$parent.globalData.statusBarHeight
+        this.titleBarHeight = this.$root.$parent.globalData.titleBarHeight
+      } else {
+        let that = this
+        wx.getSystemInfo({
+          success: function(res) {
+            if (res.model.indexOf('iPhone') !== -1) {
+              that.$root.$parent.globalData.titleBarHeight = 44
+            } else {
+              that.$root.$parent.globalData.titleBarHeight = 48
+            }
+            that.titleBarHeight = that.$root.$parent.globalData.titleBarHeight
+            that.statusBarHeight = that.$root.$parent.globalData.statusBarHeight = res.statusBarHeight
+            that.$apply()
+          },
+          failure() {
+            that.statusBarHeight = 0
+            that.titleBarHeight = 0
+            that.$apply()
+          }
+        })
+      }
+    }
+  }
+</script>
+<style lang="less">
+.loading-gif {
+  width: 46rpx;
+  height: 8rpx;
+}
+.loading-wrap {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20rpx;
+  image {
+    background-color: transparent;
+  }
+}
+.header {
+  display: flex;
+  align-items: center;
+  top: 0;
+  position: fixed;
+  width: 100%;
+  background-color: #FFF;
+  z-index: 99999;
+  .line {
+    border-left: 1rpx solid #D7D7D7;
+    height: 36rpx;
+  }
+  .back, .home {
+    height: 32rpx;
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 138rpx;
+    height: 56rpx;
+    border: 1rpx solid #F1F1F1;
+    border-radius: 32rpx;
+    margin-left: 14rpx;
+    padding: 0 14rpx;
+    image {
+      width: 32rpx;
+      height: 32rpx;
+      background: transparent;
+      vertical-align: top;
+    }
+  }
+
+  .header-title {
+    position: absolute;
+    left: 50%;
+    font-size: 38rpx;
+    transform: translateX(-50%);
+  }
+}
+</style>

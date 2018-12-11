@@ -1,0 +1,35 @@
+<template>
+  <view class="container">
+    <navigation :showIcon.sync="showIcon" title="首页"></navigation>
+    <view class="content">这是正文</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Navigation from '../components/navigation'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: 'test'
+    }
+    components = {
+      navigation: Navigation
+    }
+
+    data = {
+
+    }
+
+    onLoad() {
+
+    }
+  }
+</script>
+<style lang="less" scoped>
+.content {
+  background: #F3F3F3;
+  height: 100vh;
+  text-align: center
+}
+</style>

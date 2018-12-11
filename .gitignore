@@ -1,0 +1,9 @@
+wepy/.DS_Store
+wepy/.idea/
+wepy/node_modules/
+wepy/dist/
+wepy/.wepyignore
+wepy/.wepycache
+wepy/npm-debug.log
+wepy/package-lock.json
+src/utils/wxHelper.js*.iml

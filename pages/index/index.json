@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "ICY买手店",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "navigation": "../../components/navigation/navigation"
+  }
+}
